@@ -18,9 +18,10 @@ export interface SessionAnalysis {
   transcript?: ChatMessage[];
 }
 
-const supabase = createClient();
-
 export const saveSessionAnalysis = async (analysis: Omit<SessionAnalysis, 'timestamp'>) => {
+  const supabase = createClient();
+  if (!supabase.auth) return null;
+  
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
 
@@ -45,10 +46,10 @@ export const saveSessionAnalysis = async (analysis: Omit<SessionAnalysis, 'times
 };
 
 export const getSessionHistory = async (): Promise<SessionAnalysis[]> => {
+  const supabase = createClient();
+  if (!supabase.from) return [];
+
   const { data, error } = await supabase
-    .from('sessions')
-    .select('*')
-    .order('timestamp', { ascending: false });
 
   if (error) {
     console.error('Supabase fetch error:', error);
@@ -70,8 +71,10 @@ export const getSessionHistory = async (): Promise<SessionAnalysis[]> => {
 };
 
 export const getUserProfile = async () => {
+  const supabase = createClient();
+  if (!supabase.auth) return null;
+
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return null;
 
   const { data, error } = await supabase
     .from('profiles')
@@ -84,8 +87,10 @@ export const getUserProfile = async () => {
 };
 
 export const saveUserProfile = async (profile: { name: string; age: string; concerns: string }) => {
+  const supabase = createClient();
+  if (!supabase.auth) return null;
+
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return null;
 
   const { data, error } = await supabase
     .from('profiles')
