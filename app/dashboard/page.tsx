@@ -156,6 +156,9 @@ export default function DashboardPage() {
                       ))}
                       {!session.transcript && <p className="text-slate-400 italic text-sm">Full transcript not available for this session.</p>}
                     </div>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
