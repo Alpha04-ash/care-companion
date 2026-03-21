@@ -109,6 +109,8 @@ export const saveUserProfile = async (profile: { name: string; age: string; conc
 };
 
 export const clearSessionHistory = async () => {
+  const supabase = createClient();
+  if (!supabase.auth) return;
   const { error } = await supabase.auth.signOut();
   if (error) console.error('Sign out error:', error);
 };
