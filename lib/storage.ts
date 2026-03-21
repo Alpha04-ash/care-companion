@@ -56,7 +56,7 @@ export const getSessionHistory = async (): Promise<SessionAnalysis[]> => {
     return [];
   }
 
-  return data.map(s => ({
+  return data.map((s: any) => ({
     id: s.id,
     timestamp: s.timestamp,
     moodScore: s.mood_score,
