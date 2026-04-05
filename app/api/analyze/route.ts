@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyDSm_J3BQS2G-pkfqOogVa-B9hPxCKTH8I';
+  const apiKey = process.env.GEMINI_API_KEY;
   
   try {
     const { transcript } = await req.json();
